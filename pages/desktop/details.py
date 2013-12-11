@@ -96,6 +96,7 @@ class Details(Base):
     def __init__(self, testsetup, addon_name=None):
         #formats name for url
         Base.__init__(self, testsetup)
+        self.selenium.maximize_window()
         if (addon_name is not None):
             self.addon_name = addon_name.replace(" ", "-")
             self.addon_name = re.sub(r'[^A-Za-z0-9\-]', '', self.addon_name).lower()
@@ -558,7 +559,6 @@ class Details(Base):
                 "Timeout waiting for 'make contribution' button.")
 
         def click_make_contribution_button(self):
-            self.selenium.maximize_window()
             self.selenium.find_element(*self._make_contribution_button_locator).click()
             from pages.desktop.regions.paypal_frame import PayPalFrame
             return PayPalFrame(self.testsetup)

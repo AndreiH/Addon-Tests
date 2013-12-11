@@ -47,6 +47,7 @@ class Home(Base):
     def __init__(self, testsetup, open_url=True):
         """Creates a new instance of the class and gets the page ready for testing."""
         Base.__init__(self, testsetup)
+        self.selenium.maximize_window()
         if open_url:
             self.selenium.get(self.base_url)
         WebDriverWait(self.selenium, self.timeout).until(lambda s: s.find_element(*self._promo_box_locator).size['height'] == 271)
