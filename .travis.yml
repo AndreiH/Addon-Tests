@@ -1,0 +1,21 @@
+language: python
+python:
+  - 2.7
+
+before_install:
+  - git submodule update --init --recursive
+
+install:
+  - "pip install -Ur requirements.txt"
+
+before_script:
+  - sh -e /etc/init.d/xvfb start
+
+script: py.test tests/desktop -r fsxXR -v --reruns=2 -n --baseurl=https://addons-dev.allizom.org --driver=firefox --destructive -m "not login"
+
+env:
+  - DISPLAY=':99.0'
+
+notifications:
+  email:
+    - webqa-ci@mozilla.org
