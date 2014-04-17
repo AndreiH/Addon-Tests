@@ -66,8 +66,7 @@ class ViewProfile(Base):
 
     @property
     def email_value(self):
-        email = self.selenium.find_element(*self._email_locator).text
-        return email[::-1]
+        return self.selenium.find_element(*self._email_locator).text
 
 
 class User(Base):
