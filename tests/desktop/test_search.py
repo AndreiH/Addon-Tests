@@ -201,8 +201,6 @@ class TestSearch:
         else:
             Assert.equal(search_page.result_count, number)
 
-    @pytest.mark.xfail("'addons.allizom' in config.getvalue('base_url')",
-                       reason='https://github.com/mozilla/Addon-Tests/issues/728')
     @pytest.mark.native
     @pytest.mark.nondestructive
     @pytest.mark.smoke
@@ -218,6 +216,10 @@ class TestSearch:
     def test_searching_for_addon_type_returns_results_of_correct_type(
         self, mozwebqa, addon_type, term, breadcrumb_component
     ):
+
+        if '-dev' not in mozwebqa.base_url:
+            pytest.xfail('Bug 1117739 - [stage] "Complete themes" search is not returning any results')
+
         amo_home_page = Home(mozwebqa)
 
         if (addon_type == 'Complete Themes'):
